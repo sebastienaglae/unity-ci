@@ -1,4 +1,4 @@
-name: Unity 😎
+name: Actions 😎
 
 on:
   pull_request: {}
@@ -38,13 +38,13 @@ jobs:
       - name: Run tests
         uses: game-ci/unity-test-runner@v2
         with:
-          projectPath: unity-project
+          projectPath: test-projects/test-project
 
       # Build
       - name: Build project
         uses: game-ci/unity-builder@v2
         with:
-          projectPath: unity-project
+          projectPath: test-projects/test-project
           targetPlatform: WebGL
 
       # Output
@@ -75,6 +75,21 @@ jobs:
         with:
           name: Manual Activation File
           path: ${{ steps.getManualLicenseFile.outputs.filePath }}
+
+#  requestActivation:
+#    name: Request activation ✔
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#      - uses: game-ci/unity-activate@v2
+#
+#  activateAndThenReturnLicense:
+#    name: returnLicense 🎈
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#      - uses: game-ci/unity-activate@v2
+#      - uses: game-ci/unity-return-license@v2
 
   testRunnerInEditMode:
     name: Test in editmode 📝
@@ -111,7 +126,7 @@ jobs:
       - uses: game-ci/unity-test-runner@v2
         id: testRunner
         with:
-          projectPath: unity-project
+          projectPath: test-projects/test-project
           testMode: editmode
 
       # Upload artifact
@@ -156,7 +171,7 @@ jobs:
       - uses: game-ci/unity-test-runner@v2
         id: testRunner
         with:
-          projectPath: unity-project
+          projectPath: test-projects/test-project
           testMode: playmode
 
       # Upload artifact
@@ -208,7 +223,7 @@ jobs:
       - uses: game-ci/unity-test-runner@v2.0-alpha-5
         id: testRunner
         with:
-          projectPath: unity-project
+          projectPath: test-projects/test-project
           testMode: ${{ matrix.testMode }}
           checkName: ${{ matrix.testMode }} test results
           githubToken: ${{ secrets.GITHUB_TOKEN }}
@@ -230,7 +245,7 @@ jobs:
       fail-fast: false
       matrix:
         projectPath:
-          - unity-project
+          - test-projects/test-project
         targetPlatform:
           - StandaloneOSX # Build a macOS standalone (Intel 64-bit).
           - StandaloneWindows64 # Build a Windows 64-bit standalone.
