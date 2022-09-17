@@ -48,6 +48,7 @@ jobs:
         with:
           projectPath: unity-project
           targetPlatform: WebGL
+          allowDirtyBuild: true
 
       # Output
       - uses: actions/upload-artifact@v2
@@ -288,6 +289,7 @@ jobs:
           projectPath: ${{ matrix.projectPath }}
           targetPlatform: ${{ matrix.targetPlatform }}
           customParameters: "-myParameter myValue -myBoolean -ThirdParameter andItsValue"
+          allowDirtyBuild: true
       - uses: actions/upload-artifact@v2
         with:
           name: Build (${{ matrix.targetPlatform }})
